@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using StockTrader.Models;
 using StockTrader.Services;
 
 var config = new ConfigurationBuilder()
@@ -11,3 +12,6 @@ Console.Write("Input the Ticker Symbol (e.g. AAPL for Apple) for the stock you w
 string? tickerSymbol = Console.ReadLine();
 
 var stockPriceService = new StockPriceService(apiKey, tickerSymbol);
+List<StockPrice> data = await stockPriceService.GetStockPricesAsync();
+
+Console.WriteLine("data.[0].AdjOpen = " + data[0].AdjOpen);
