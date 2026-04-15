@@ -13,5 +13,3 @@ string? tickerSymbol = Console.ReadLine();
 
 var stockPriceService = new StockPriceService(apiKey, tickerSymbol);
 List<StockPrice> data = await stockPriceService.GetStockPricesAsync();
-
-Console.WriteLine("data.[0].AdjOpen = " + data[0].AdjOpen);
