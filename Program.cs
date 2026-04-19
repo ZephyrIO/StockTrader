@@ -13,3 +13,12 @@ string? tickerSymbol = Console.ReadLine();
 
 var stockPriceService = new StockPriceService(apiKey, tickerSymbol);
 List<StockPrice> data = await stockPriceService.GetStockPricesAsync();
+
+if (data[1].AdjClose > data[0].AdjClose)
+{
+    Console.WriteLine("SELL: Price has gone up.");
+} else  if (data[1].AdjClose < data[0].AdjClose) {
+    Console.WriteLine("BUY: Price has gone down.");
+} else {
+    Console.WriteLine("HOLD: Price has not changed.");
+}
