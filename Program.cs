@@ -16,6 +16,7 @@ var stockPriceService = new StockPriceService(apiKey, tickerSymbol);
 List<StockPrice> data = await stockPriceService.GetStockPricesAsync();
 Console.WriteLine("Determining Course of Action...");
 
+/*
 if (data[1].AdjClose > data[0].AdjClose)
 {
     Console.WriteLine("SELL: Price has gone up.");
@@ -24,3 +25,4 @@ if (data[1].AdjClose > data[0].AdjClose)
 } else {
     Console.WriteLine("HOLD: Price has not changed.");
 }
+*/
