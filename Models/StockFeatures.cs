@@ -12,7 +12,7 @@ public class StockFeatures
     // Trend Indicators
     public float SMA10 { get; set; }
     public float SMA20 { get; set; }
-    public float SMA10 { get; set; }
+    public float SMA50 { get; set; }
     public float SMA200 { get; set; }
     public float EMA12 { get; set; }
     public float EMA26 { get; set; }
