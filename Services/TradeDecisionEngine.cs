@@ -26,6 +26,18 @@ public class TradeDecisionEngine (List<StockPrice> data)
         {
             features.SMA10 = CalcSMA10(i);
         }
+        if (distance > 20)
+        {
+            features.SMA20 = CalcSMA20(i);
+        }
+        if (distance > 50)
+        {
+            features.SMA50 = CalcSMA50(i);
+        }
+        if (distance > 200)
+        {
+            features.SMA200 = CalcSMA200(i);
+        }
     }
 
     private float CalcSMA10(int i)
@@ -38,5 +50,41 @@ public class TradeDecisionEngine (List<StockPrice> data)
 
         float SMA10 = total / 10;
         return SMA10;
+    }
+
+    private float CalcSMA20(int i)
+    {
+        float total = 0.0f;
+        for (int k = i; k < (i + 20); k++)
+        {
+            total += (float) _data[k].AdjClose;
+        }
+
+        float SMA20 = total / 20;
+        return SMA20;
+    }
+
+    private float CalcSMA50(int i)
+    {
+        float total = 0.0f;
+        for (int k = i; k < (i + 50); k++)
+        {
+            total += (float) _data[k].AdjClose;
+        }
+
+        float SMA50 = total / 50;
+        return SMA50;
+    }
+
+    private float CalcSMA200(int i)
+    {
+        float total = 0.0f;
+        for (int k = i; k < (i + 200); k++)
+        {
+            total += (float) _data[k].AdjClose;
+        }
+
+        float SMA200 = total / 200;
+        return SMA200;
     }
 }
