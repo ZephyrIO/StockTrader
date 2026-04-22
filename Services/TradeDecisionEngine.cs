@@ -22,19 +22,19 @@ public class TradeDecisionEngine (List<StockPrice> data)
         int distance = _data.Count - i;
 
         // If distance is greater than the number of elements needed to calculate the value, calculate the value
-        if (distance > 10)
+        if (distance >= 10)
         {
             features.SMA10 = CalcSMA10(i);
         }
-        if (distance > 20)
+        if (distance >= 20)
         {
             features.SMA20 = CalcSMA20(i);
         }
-        if (distance > 50)
+        if (distance >= 50)
         {
             features.SMA50 = CalcSMA50(i);
         }
-        if (distance > 200)
+        if (distance >= 200)
         {
             features.SMA200 = CalcSMA200(i);
         }
