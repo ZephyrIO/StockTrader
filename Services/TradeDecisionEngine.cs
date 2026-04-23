@@ -39,6 +39,7 @@ public class TradeDecisionEngine
         features.EMA26 = CalcEMA(pos, 26);
 
         features.MACD = CalcMACD(pos);
+        features.MACDSignal = CalcMACDSignal(pos);
         return features;
     }
 
@@ -73,6 +74,19 @@ public class TradeDecisionEngine
         float EMA12 = CalcEMA(pos, 12);
         float EMA26 = CalcEMA(pos, 26);
         return EMA12 - EMA26;
+    }
+
+    private float CalcMACDSignal(int pos)
+    {
+        const float multiplier = 2.0f / (9 + 1);
+        float macdSignal = CalcMACD(pos - (9 - 1));
+
+        for (int k = pos - (9 - 2); k <= pos; k++)
+        {
+            macdSignal = ((CalcMACD(k) - macdSignal) * multiplier) + macdSignal;
+        }
+
+        return macdSignal;
     }
 
 }
