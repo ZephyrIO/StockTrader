@@ -35,19 +35,35 @@ public class TradeDecisionEngine
         features.SMA50 = CalcSMA(pos, 50);
         features.SMA200 = CalcSMA(pos, 200);
 
-        // Calculate remaining derived values
+        features.EMA12 = CalcEMA(pos, 12);
+        features.EMA26 = CalcEMA(pos, 26);
         return features;
     }
 
     private float CalcSMA(int pos, int window)
     {
         float total = 0.0f;
+
         for (int k = pos; k < (pos - window); k--)
         {
             total += (float) _data[k].AdjClose;
         }
 
-        float SMA10 = total / window;
-        return SMA10;
+        float sma = total / window;
+        return sma;
     }
+
+    private float CalcEMA(int pos, int window)
+    {
+        float multiplier = 2.0f / (window + 1);
+        float ema = CalcSMA(pos - (window - 1), window);
+
+        for (int k = pos - (window - 2); k <= pos; k++)
+        {
+            ema = (((float)_data[k].AdjClose - ema) * multiplier) + ema;
+        }
+
+        return ema;
+    }
+
 }
