@@ -2,15 +2,21 @@ using StockTrader.Models;
 
 namespace StockTrader.Services;
 
-public class TradeDecisionEngine (List<StockPrice> data)
+public class TradeDecisionEngine
 {
-    private readonly List<StockPrice> _data = data;
+    private readonly List<StockPrice> _data;
     private List<StockFeatures> _features = new List<StockFeatures>();
+
+    public TradeDecisionEngine(List<StockPrice> data)
+    {
+        _data = data;
+        _data.Reverse();
+    }
+
 
     private StockFeatures? CalculateFeatures(int pos)
     {
-        int distance = _data.Count - pos;
-        if (distance < 200)
+        if (pos < 199)
         {
             return null;
         }
@@ -36,7 +42,7 @@ public class TradeDecisionEngine (List<StockPrice> data)
     private float CalcSMA(int pos, int window)
     {
         float total = 0.0f;
-        for (int k = pos; k < (pos + window); k++)
+        for (int k = pos; k < (pos - window); k--)
         {
             total += (float) _data[k].AdjClose;
         }
