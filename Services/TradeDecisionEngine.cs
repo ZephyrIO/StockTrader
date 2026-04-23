@@ -7,8 +7,14 @@ public class TradeDecisionEngine (List<StockPrice> data)
     private readonly List<StockPrice> _data = data;
     private List<StockFeatures> _features = new List<StockFeatures>();
 
-    private void CalculateFeatures(int pos)
+    private StockFeatures? CalculateFeatures(int pos)
     {
+        int distance = _data.Count - pos;
+        if (distance < 200)
+        {
+            return null;
+        }
+
         StockFeatures features = new StockFeatures();
 
         // Copy Raw OHLCV from _data
@@ -16,28 +22,15 @@ public class TradeDecisionEngine (List<StockPrice> data)
         features.AdjHigh = (float) _data[pos].AdjHigh;
         features.AdjLow = (float) _data[pos].AdjLow;
         features.AdjClose = (float) _data[pos].AdjClose;
-        features.Volume = (float) _data[pos].Volume;
+        features.Volume = (float)_data[pos].Volume;
 
-        // Determine number of elements between current element and oldest element
-        int distance = _data.Count - pos;
+        features.SMA10 = CalcSMA(pos, 10);
+        features.SMA20 = CalcSMA(pos, 20);
+        features.SMA50 = CalcSMA(pos, 50);
+        features.SMA200 = CalcSMA(pos, 200);
 
-        // If distance is greater than the number of elements needed to calculate the value, calculate the value
-        if (distance >= 10)
-        {
-            features.SMA10 = CalcSMA(pos, 10);
-        }
-        if (distance >= 20)
-        {
-            features.SMA20 = CalcSMA(pos, 20);
-        }
-        if (distance >= 50)
-        {
-            features.SMA50 = CalcSMA(pos, 50);
-        }
-        if (distance >= 200)
-        {
-            features.SMA200 = CalcSMA(pos, 200);
-        }
+        // Calculate remaining derived values
+        return features;
     }
 
     private float CalcSMA(int pos, int window)
