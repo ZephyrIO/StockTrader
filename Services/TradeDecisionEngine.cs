@@ -37,6 +37,8 @@ public class TradeDecisionEngine
 
         features.EMA12 = CalcEMA(pos, 12);
         features.EMA26 = CalcEMA(pos, 26);
+
+        features.MACD = CalcMACD(pos);
         return features;
     }
 
@@ -64,6 +66,13 @@ public class TradeDecisionEngine
         }
 
         return ema;
+    }
+
+    private float CalcMACD(int pos)
+    {
+        float EMA12 = CalcEMA(pos, 12);
+        float EMA26 = CalcEMA(pos, 26);
+        return EMA12 - EMA26;
     }
 
 }
