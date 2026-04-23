@@ -10,7 +10,7 @@ public class TradeDecisionEngine (List<StockPrice> data)
     private void CalculateFeatures(int pos)
     {
         StockFeatures features = new StockFeatures();
-        
+
         // Copy Raw OHLCV from _data
         features.AdjOpen = (float) _data[pos].AdjOpen;
         features.AdjHigh = (float) _data[pos].AdjHigh;
