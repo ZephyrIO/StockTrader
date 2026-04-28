@@ -49,6 +49,9 @@ public class TradeDecisionEngine
         features.BollingerMiddle = features.SMA20;
         features.BollingerUpper = features.BollingerMiddle + CalcBollinger(pos, features.SMA20);
         features.BollingerLower = features.BollingerMiddle - CalcBollinger(pos, features.SMA20);
+
+        features.OBV = CalcOBV(pos);
+
         return features;
     }
 
@@ -157,6 +160,40 @@ public class TradeDecisionEngine
 
         float stdDev = (float) Math.Sqrt(total / 20);
         return stdDev * 2;
+    }
+
+    private float CalcOBV(int pos)
+    {
+        if (pos == 200)
+        {
+            if (_data[pos].AdjClose > _data[pos - 1].AdjClose)
+            {
+                return (float) _data[pos].Volume;
+            }
+            else if (_data[pos].AdjClose < _data[pos - 1].AdjClose)
+            {
+                return (float) 0 - _data[pos].Volume;
+            }
+            else
+            {
+                return 0.0f;
+            }
+        }
+        else
+        {
+            if (_data[pos].AdjClose > _data[pos - 1].AdjClose)
+            {
+                return _features[^1].OBV + (float) _data[pos].Volume;
+            }
+            else if (_data[pos].AdjClose < _data[pos - 1].AdjClose)
+            {
+                return _features[^1].OBV - (float) _data[pos].Volume;
+            }
+            else
+            {
+                return _features[^1].OBV;
+            }
+        }
     }
 
 }
