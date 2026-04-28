@@ -40,6 +40,8 @@ public class TradeDecisionEngine
 
         features.MACD = CalcMACD(pos);
         features.MACDSignal = CalcMACDSignal(pos);
+
+        features.RSI14 = CalcRSI(pos);
         return features;
     }
 
@@ -47,7 +49,7 @@ public class TradeDecisionEngine
     {
         float total = 0.0f;
 
-        for (int k = pos; k < (pos - window); k--)
+        for (int k = pos; k > (pos - window); k--)
         {
             total += (float) _data[k].AdjClose;
         }
@@ -88,5 +90,34 @@ public class TradeDecisionEngine
 
         return macdSignal;
     }
+
+    private float CalcRSI(int pos)
+    {
+        float avgGain = 0.0f;
+        float avgLoss = 0.0f;
+
+        for (int i = (pos - 14); i < pos; i++)
+        {
+            float gain = (float)_data[pos].AdjClose - (float)_data[pos - 1].AdjClose;
+            float loss = (float)_data[pos].AdjClose - (float)_data[pos - 1].AdjClose;
+            if (gain < 0.0f)
+            {
+                gain = 0.0f;
+            }
+
+            if (loss < 0.0f)
+            {
+                loss = 0.0f;
+            }
+
+            avgGain += gain;
+            avgLoss += loss;
+        }
+
+        float RS = avgGain / avgLoss;
+        float RSI = 100 - (100 / (1 + RS));
+        return RSI;
+    }
+
 
 }
