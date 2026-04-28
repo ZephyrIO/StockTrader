@@ -45,6 +45,10 @@ public class TradeDecisionEngine
         features.ROC10 = CalcROC(pos);
 
         features.ATR14 = CalcATR(pos);
+
+        features.BollingerMiddle = features.SMA20;
+        features.BollingerUpper = features.BollingerMiddle + CalcBollinger(pos, features.SMA20);
+        features.BollingerLower = features.BollingerMiddle - CalcBollinger(pos, features.SMA20);
         return features;
     }
 
@@ -141,6 +145,18 @@ public class TradeDecisionEngine
 
         ATR /= 14;
         return ATR;
+    }
+
+    private float CalcBollinger(int pos, float SMA)
+    {
+        double total = 0.0f;
+        for (int i = pos - 19; i <= pos; i++)
+        {
+            total += Math.Pow((float)_data[i].AdjClose - SMA, 2);
+        }
+
+        float stdDev = (float) Math.Sqrt(total / 20);
+        return stdDev * 2;
     }
 
 }
