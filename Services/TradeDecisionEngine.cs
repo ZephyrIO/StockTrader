@@ -42,6 +42,7 @@ public class TradeDecisionEngine
         features.MACDSignal = CalcMACDSignal(pos);
 
         features.RSI14 = CalcRSI(pos);
+        features.ROC10 = CalcROC(pos);
         return features;
     }
 
@@ -116,6 +117,13 @@ public class TradeDecisionEngine
         float RS = avgGain / avgLoss;
         float RSI = 100 - (100 / (1 + RS));
         return RSI;
+    }
+
+    private float CalcROC(int pos)
+    {
+        float ROC = ((float)_data[pos].AdjClose - (float)_data[pos - 10].AdjClose) / (float)_data[pos - 10].AdjClose;
+        ROC *= 100;
+        return ROC;
     }
 
 }
