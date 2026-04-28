@@ -51,6 +51,7 @@ public class TradeDecisionEngine
         features.BollingerLower = features.BollingerMiddle - CalcBollinger(pos, features.SMA20);
 
         features.OBV = CalcOBV(pos);
+        features.VolumeSMA20 = CalcVSMA(pos);
 
         return features;
     }
@@ -194,6 +195,19 @@ public class TradeDecisionEngine
                 return _features[^1].OBV;
             }
         }
+    }
+
+    private float CalcVSMA(int pos)
+    {
+        float total = 0.0f;
+
+        for (int k = pos; k > (pos - 20); k--)
+        {
+            total += (float) _data[k].Volume;
+        }
+
+        float vSMA = total / 20;
+        return vSMA;
     }
 
 }
