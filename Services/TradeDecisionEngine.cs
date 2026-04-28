@@ -96,28 +96,26 @@ public class TradeDecisionEngine
         float avgGain = 0.0f;
         float avgLoss = 0.0f;
 
-        for (int i = (pos - 14); i < pos; i++)
+        for (int i = (pos - 13); i <= pos; i++)
         {
-            float gain = (float)_data[pos].AdjClose - (float)_data[pos - 1].AdjClose;
-            float loss = (float)_data[pos].AdjClose - (float)_data[pos - 1].AdjClose;
-            if (gain < 0.0f)
+            float change = (float)_data[i].AdjClose - (float)_data[i - 1].AdjClose;
+            if (change > 0)
             {
-                gain = 0.0f;
+                avgGain += change;
             }
-
-            if (loss < 0.0f)
+            else
             {
-                loss = 0.0f;
+                avgLoss += Math.Abs(change);
             }
-
-            avgGain += gain;
-            avgLoss += loss;
         }
 
+        avgGain /= 14;
+        avgLoss /= 14;
+
+        if (avgLoss == 0) return 100;
         float RS = avgGain / avgLoss;
         float RSI = 100 - (100 / (1 + RS));
         return RSI;
     }
-
 
 }
