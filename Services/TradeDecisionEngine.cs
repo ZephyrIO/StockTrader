@@ -43,6 +43,8 @@ public class TradeDecisionEngine
 
         features.RSI14 = CalcRSI(pos);
         features.ROC10 = CalcROC(pos);
+
+        features.ATR14 = CalcATR(pos);
         return features;
     }
 
@@ -124,6 +126,21 @@ public class TradeDecisionEngine
         float ROC = ((float)_data[pos].AdjClose - (float)_data[pos - 10].AdjClose) / (float)_data[pos - 10].AdjClose;
         ROC *= 100;
         return ROC;
+    }
+
+    private float CalcATR(int pos)
+    {
+        float ATR = 0.0f;
+        for (int i = (pos - 13); i <= pos; i++)
+        {
+            float trueRange = (float)Math.Max(_data[i].AdjHigh - _data[i].AdjLow, Math.Max(Math.Abs(_data[i].AdjHigh - _data[i - 1].AdjClose),
+            Math.Abs(_data[i].AdjLow - _data[i - 1].AdjClose)));
+
+            ATR += trueRange;
+        }
+
+        ATR /= 14;
+        return ATR;
     }
 
 }
