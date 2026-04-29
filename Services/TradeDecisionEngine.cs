@@ -165,7 +165,7 @@ public class TradeDecisionEngine
 
     private float CalcOBV(int pos)
     {
-        if (pos == 200)
+        if (pos == 199)
         {
             if (_data[pos].AdjClose > _data[pos - 1].AdjClose)
             {
