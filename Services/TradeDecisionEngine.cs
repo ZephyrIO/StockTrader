@@ -13,6 +13,17 @@ public class TradeDecisionEngine
         _data.Reverse();
     }
 
+    public void CreateFeatures()
+    {
+        for (int i = 0; i < _data.Count; i++)
+        {
+            var stockFeature = CalculateFeatures(i);
+            if (stockFeature != null)
+            {
+                _features.Add(stockFeature);
+            }
+        }
+    }
 
     private StockFeatures? CalculateFeatures(int pos)
     {
@@ -210,5 +221,4 @@ public class TradeDecisionEngine
         float vSMA = total / 20;
         return vSMA;
     }
-
 }
