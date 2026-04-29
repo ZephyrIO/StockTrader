@@ -46,8 +46,8 @@ public class TradeDecisionEngine
 
         features.ATR14 = CalcATR(pos);
 
-        features.BollingerMiddle = features.SMA20;
         float bollingerWidth = CalcBollinger(pos, features.SMA20);
+        features.BollingerMiddle = features.SMA20;
         features.BollingerUpper = features.BollingerMiddle + bollingerWidth;
         features.BollingerLower = features.BollingerMiddle - bollingerWidth;
 
