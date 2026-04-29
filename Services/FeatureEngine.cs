@@ -2,12 +2,12 @@ using StockTrader.Models;
 
 namespace StockTrader.Services;
 
-public class TradeDecisionEngine
+public class FeatureEngine
 {
     private readonly List<StockPrice> _data;
     private List<StockFeatures> _features = new List<StockFeatures>();
 
-    public TradeDecisionEngine(List<StockPrice> data)
+    public FeatureEngine(List<StockPrice> data)
     {
         _data = data;
         _data.Reverse();
