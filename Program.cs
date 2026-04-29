@@ -16,4 +16,4 @@ var stockPriceService = new StockPriceService(apiKey, tickerSymbol);
 List<StockPrice> data = await stockPriceService.GetStockPricesAsync();
 Console.WriteLine("Determining Course of Action...");
 
-var decisionEngine = new TradeDecisionEngine(data);
+var featureEngine = new FeatureEngine(data);
