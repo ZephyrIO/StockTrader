@@ -6,6 +6,7 @@ public class FeatureEngine
 {
     private readonly List<StockPrice> _data;
     private List<StockFeatures> _features = new List<StockFeatures>();
+    public List<StockFeatures> Features => _features;
 
     public FeatureEngine(List<StockPrice> data)
     {
