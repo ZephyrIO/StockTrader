@@ -17,3 +17,4 @@ List<StockPrice> data = await stockPriceService.GetStockPricesAsync();
 Console.WriteLine("Determining Course of Action...");
 
 var featureEngine = new FeatureEngine(data);
+featureEngine.CreateFeatures();
