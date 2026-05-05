@@ -104,10 +104,10 @@ public class FeatureEngine
 
     private float CalcMACDSignal(int pos)
     {
-        const float multiplier = 2.0f / (9 + 1);
-        float macdSignal = CalcMACD(pos - (9 - 1));
+        const float multiplier = 2.0f / 10;
+        float macdSignal = CalcMACD(pos - 8);
 
-        for (int k = pos - (9 - 2); k <= pos; k++)
+        for (int k = pos - 7; k <= pos; k++)
         {
             macdSignal = ((CalcMACD(k) - macdSignal) * multiplier) + macdSignal;
         }
