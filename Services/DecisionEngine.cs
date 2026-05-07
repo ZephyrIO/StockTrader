@@ -12,6 +12,35 @@ public class DecisionEngine (List<StockFeatures> features)
     private readonly MLContext _mlContext = new MLContext(seed: 0);
 
     public string TrainAndPredict()
-    {}
+    {
+        // Load the features list into an ML.NET data view
+        IDataView dataView = _mlContext.Data.LoadFromEnumerable(_features);
+
+        // Define the feature columns that the model will learn from
+        string[] featureColumns = [
+            nameof(StockFeatures.AdjOpen),
+            nameof(StockFeatures.AdjHigh),
+            nameof(StockFeatures.AdjLow),
+            nameof(StockFeatures.AdjLow),
+            nameof(StockFeatures.AdjClose),
+            nameof(StockFeatures.Volume),
+            nameof(StockFeatures.SMA10),
+            nameof(StockFeatures.SMA20),
+            nameof(StockFeatures.SMA50),
+            nameof(StockFeatures.SMA200),
+            nameof(StockFeatures.EMA12),
+            nameof(StockFeatures.EMA26),
+            nameof(StockFeatures.MACD),
+            nameof(StockFeatures.MACDSignal),
+            nameof(StockFeatures.RSI14),
+            nameof(StockFeatures.ROC10),
+            nameof(StockFeatures.ATR14),
+            nameof(StockFeatures.BollingerUpper),
+            nameof(StockFeatures.BollingerMiddle),
+            nameof(StockFeatures.BollingerLower),
+            nameof(StockFeatures.OBV),
+            nameof(StockFeatures.VolumeSMA20)
+        ];
+    }
 
 }
