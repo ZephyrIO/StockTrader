@@ -58,6 +58,9 @@ public class DecisionEngine (List<StockFeatures> features)
         List<StockFeatures> testData = _features.Skip(trainSize).ToList();
         IDataView trainView = _mlContext.Data.LoadFromEnumerable(trainData);
         IDataView testView = _mlContext.Data.LoadFromEnumerable(testData);
+
+        // Train the model on the training set
+        ITransformer model = pipeline.Fit(trainView);
     }
 
 }
