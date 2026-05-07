@@ -66,6 +66,13 @@ public class DecisionEngine (List<StockFeatures> features)
         IDataView predictions = model.Transform(testView);
         var metrics = _mlContext.MulticlassClassification.Evaluate(predictions);
         Console.WriteLine($"Model Accuracy: {metrics.MacroAccuracy:P2}");
+
+        // Predict on the most recent data point
+        var predictionEngine = _mlContext.Model.CreatePredictionEngine<StockFeatures, StockPrediction>(model);
+        StockFeatures latestFeatures = _features[^1];
+        StockPrediction prediction = predictionEngine.Predict(latestFeatures);
+
+        return prediction.PredictedLabel;
     }
 
 }
