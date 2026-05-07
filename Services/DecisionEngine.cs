@@ -74,5 +74,4 @@ public class DecisionEngine (List<StockFeatures> features)
 
         return prediction.PredictedLabel;
     }
-
 }
