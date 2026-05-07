@@ -61,6 +61,11 @@ public class DecisionEngine (List<StockFeatures> features)
 
         // Train the model on the training set
         ITransformer model = pipeline.Fit(trainView);
+
+        // Evaluate the model on the test set
+        IDataView predictions = model.Transform(testView);
+        var metrics = _mlContext.MulticlassClassification.Evaluate(predictions);
+        Console.WriteLine($"Model Accuracy: {metrics.MacroAccuracy:P2}");
     }
 
 }
