@@ -51,6 +51,13 @@ public class DecisionEngine (List<StockFeatures> features)
                     numberOfTrees: 100,
                     minimumExampleCountPerLeaf: 5)))
             .Append(_mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
+
+        // Split data chronologically into training and testing sets
+        int trainSize = (int)(_features.Count * 0.8);
+        List<StockFeatures> trainData = _features.Take(trainSize).ToList();
+        List<StockFeatures> testData = _features.Skip(trainSize).ToList();
+        IDataView trainView = _mlContext.Data.LoadFromEnumerable(trainData);
+        IDataView testView = _mlContext.Data.LoadFromEnumerable(testData);
     }
 
 }
