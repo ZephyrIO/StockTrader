@@ -41,6 +41,16 @@ public class DecisionEngine (List<StockFeatures> features)
             nameof(StockFeatures.OBV),
             nameof(StockFeatures.VolumeSMA20)
         ];
+
+        // Define the training pipeline
+        var pipeline = _mlContext.Transforms.Conversion.MapValueToKey("Label")
+            .Append(_mlContext.Transforms.Concatenate("Features", featureColumns))
+            .Append(_mlContext.MulticlassClassification.Trainers.OneVersusAll(
+                _mlContext.BinaryClassification.Trainers.FastTree(
+                    numberOfLeaves: 20,
+                    numberOfTrees: 100,
+                    minimumExampleCountPerLeaf: 5)))
+            .Append(_mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
     }
 
 }
