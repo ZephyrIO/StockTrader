@@ -78,11 +78,11 @@ public class FeatureEngine
 
             float percentChange = (next.AdjClose - current.AdjClose) / current.AdjClose * 100;
 
-            if (percentChange > 1.0f)
+            if (percentChange > 2.0f)
             {
                 current.Label = "Buy";
             }
-            else if (percentChange < -1.0f)
+            else if (percentChange < -2.0f)
             {
                 current.Label = "Sell";
             }
