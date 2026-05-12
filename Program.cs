@@ -14,11 +14,14 @@ Console.WriteLine($"Getting {tickerSymbol} Data...");
 
 var stockPriceService = new StockPriceService(apiKey, tickerSymbol);
 List<StockPrice> data = await stockPriceService.GetStockPricesAsync();
-Console.WriteLine("Determining Course of Action...");
+
+Console.WriteLine("Calculating Stock Features...");
 
 var featureEngine = new FeatureEngine(data);
 featureEngine.CreateFeatures();
 featureEngine.LabelFeatures();
+
+Console.WriteLine("Building Decision Model...");
 
 var decisionModel = new DecisionEngine(featureEngine.Features);
 string decision = decisionModel.TrainAndPredict();
