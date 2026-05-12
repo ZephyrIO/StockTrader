@@ -18,3 +18,8 @@ Console.WriteLine("Determining Course of Action...");
 
 var featureEngine = new FeatureEngine(data);
 featureEngine.CreateFeatures();
+featureEngine.LabelFeatures();
+
+var decisionModel = new DecisionEngine(featureEngine.Features);
+string decision = decisionModel.TrainAndPredict();
+Console.WriteLine($"Decision: {decision}");
