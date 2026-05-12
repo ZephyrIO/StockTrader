@@ -69,6 +69,31 @@ public class FeatureEngine
         return features;
     }
 
+    public void LabelFeatures()
+    {
+        for (int i = 0; i < _features.Count - 1; i++)
+        {
+            StockFeatures current = _features[i];
+            StockFeatures next = _features[i + 1];
+
+            float percentChange = (next.AdjClose - current.AdjClose) / current.AdjClose * 100;
+
+            if (percentChange > 2.0f)
+            {
+                current.Label = "Buy";
+            }
+            else if (percentChange < -2.0f)
+            {
+                current.Label = "Sell";
+            }
+            else
+            {
+                current.Label = "Hold";
+            }
+        }
+        _features[^1].Label = "Hold";
+    }
+
     private float CalcSMA(int pos, int window)
     {
         float total = 0.0f;
