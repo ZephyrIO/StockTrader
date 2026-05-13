@@ -1,17 +1,11 @@
-using Microsoft.Extensions.Configuration;
 using StockTrader.Models;
 
 namespace StockTrader.Services;
 
 public static class StockDecideService
 {
-    public static async Task<string> CreateStockDecisionListAsync(string tickerSymbol)
+    public static async Task<string> CreateStockDecisionListAsync(string apiKey, string tickerSymbol)
     {
-        var config = new ConfigurationBuilder()
-            .AddUserSecrets<Program>()
-            .Build();
-        string? apiKey = config["StockApiKey"];
-
         var stockPriceService = new StockPriceService(apiKey, tickerSymbol);
         List<StockPrice> data = await stockPriceService.GetStockPricesAsync();
 
