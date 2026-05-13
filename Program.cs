@@ -12,8 +12,13 @@ string[] tickers = ["AAPL", "TSLA", "AMZN", "MSFT", "NVDA", "GOOGL", "META", "NF
     "ABBV", "ETSY", "MRNA", "LMT", "GM", "F", "LCID", "CCL", "DAL", "UAL", "AAL", "TSM", "SONY", "ET", "COIN", "RIVN", "RIOT", "CPRX", "VWO", "SPYG", "NOK",
     "ROKU", "BIDU", "DOCU", "ZM", "PINS", "TLRY", "MGM", "NIO", "C", "GS", "WFC", "ADBE", "PEP", "UNH", "CARR", "HCA", "BILI", "SIRI", "FUBO", "RKT"];
 
-List<string> results = [];
+List<string> results = ["ticker,decision"];
 for (int i = 0; i < tickers.Length; i++)
 {
-    results.Add(await StockDecideService.CreateStockDecisionListAsync(apiKey, tickers[i]));
+    string decision = await StockDecideService.CreateStockDecisionListAsync(apiKey, tickers[i]);
+    results.Add($"{tickers[i]},{decision}");
 }
+
+string csvPath = Path.Combine(Directory.GetCurrentDirectory(), "decisions.csv");
+await File.WriteAllLinesAsync(csvPath, results);
+Console.WriteLine($"Results saved to {csvPath}");
