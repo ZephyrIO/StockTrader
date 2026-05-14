@@ -12,7 +12,7 @@ string[] tickers = ["AAPL", "TSLA", "AMZN", "MSFT", "NVDA", "GOOGL", "META", "NF
     "ABBV", "ETSY", "MRNA", "LMT", "GM", "F", "LCID", "CCL", "DAL", "UAL", "AAL", "TSM", "SONY", "ET", "COIN", "RIVN", "RIOT", "CPRX", "VWO", "SPYG", "NOK",
     "ROKU", "BIDU", "DOCU", "ZM", "PINS", "TLRY", "MGM", "NIO", "C", "GS", "WFC", "ADBE", "PEP", "UNH", "CARR", "HCA", "BILI", "SIRI", "FUBO", "RKT"];
 
-List<string> results = ["ticker,decision"];
+List<string> results = ["Ticker,Decision"];
 for (int i = 0; i < tickers.Length; i++)
 {
     string decision = await StockDecideService.CreateStockDecisionListAsync(apiKey, tickers[i]);
